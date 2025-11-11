@@ -1,31 +1,33 @@
- /* app.js - lógica de MercadoKids (front) */
+/* app.js - lógica de MercadoKids (front) */
 /* Asume backend: backend/create_invoice.php y backend/check_invoice.php (LNbits) */
 
 /* ============================
    Catálogo (arrays front-only, listo para reemplazar por API)
    ============================ */
 const products = [
-  {id:1,nombre:"Pelota infantil arcoíris",categoria:"articulos",imagen:"https://images.pexels.com/photos/296301/pexels-photo-296301.jpeg",price:5.00,stock:50,descripcion:"Pelota suave y colorida para niños."},
-  {id:2,nombre:"Juego didáctico 20 piezas",categoria:"articulos",imagen:"https://images.pexels.com/photos/159823/toys-children-game-child-159823.jpeg",price:15.00,stock:20,descripcion:"Juego para aprender formas y colores."},
-  {id:3,nombre:"Jugo natural naranja 250ml",categoria:"bebidas",imagen:"https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg",price:1.50,stock:100,descripcion:"Jugo natural sin azúcares añadidos."},
-  {id:4,nombre:"Sándwich saludable",categoria:"comida",imagen:"https://images.pexels.com/photos/1600713/pexels-photo-1600713.jpeg",price:2.50,stock:40,descripcion:"Sándwich con pan integral y vegetales."},
-  {id:5,nombre:"Galletas para niños 200g",categoria:"comida",imagen:"https://images.pexels.com/photos/3996362/pexels-photo-3996362.jpeg",price:1.00,stock:200,descripcion:"Galletas suaves y sin nueces."},
-  {id:6,nombre:"Muñeca articulada 30cm",categoria:"juguetes",imagen:"https://images.pexels.com/photos/3661263/pexels-photo-3661263.jpeg",price:12.00,stock:30,descripcion:"Muñeca con ropa y accesorios."},
-  {id:7,nombre:"Carrito de juguete",categoria:"juguetes",imagen:"https://images.pexels.com/photos/110354/pexels-photo-110354.jpeg",price:9.50,stock:18,descripcion:"Carrito a control manual para niños."},
-  {id:8,nombre:"Camiseta infantil Talla 6",categoria:"ropa",imagen:"https://images.pexels.com/photos/428340/pexels-photo-428340.jpeg",price:6.00,stock:80,descripcion:"Camiseta cómoda algodón 100%."},
-  {id:9,nombre:"Set de colores 24",categoria:"articulos",imagen:"https://images.pexels.com/photos/207983/pexels-photo-207983.jpeg",price:3.50,stock:120,descripcion:"Set de lápices y marcadores."},
-  {id:10,nombre:"Puzzle 100 piezas",categoria:"articulos",imagen:"https://images.pexels.com/photos/159711/puzzle-pieces-wooden-159711.jpeg",price:7.00,stock:25,descripcion:"Puzzle educativo para niños."},
-  {id:11,nombre:"Mordedor silicona",categoria:"articulos",imagen:"https://images.pexels.com/photos/3661439/pexels-photo-3661439.jpeg",price:2.50,stock:60,descripcion:"Mordedor seguro para bebés."},
-  {id:12,nombre:"Set de platos infantiles",categoria:"comida",imagen:"https://images.pexels.com/photos/583821/pexels-photo-583821.jpeg",price:10.00,stock:40,descripcion:"Platos resistentes y coloridos."},
-  {id:13,nombre:"Botella térmica 350ml",categoria:"bebidas",imagen:"https://images.pexels.com/photos/374139/pexels-photo-374139.jpeg",price:8.00,stock:50,descripcion:"Térmica para líquidos fríos y calientes."},
-  {id:14,nombre:"Chaqueta niño 8 años",categoria:"ropa",imagen:"https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg",price:18.00,stock:12,descripcion:"Chaqueta ligera con gorro."},
-  {id:15,nombre:"Rompecabezas educativo letras",categoria:"articulos",imagen:"https://images.pexels.com/photos/356079/pexels-photo-356079.jpeg",price:4.50,stock:70,descripcion:"Aprende letras jugando."},
-  {id:16,nombre:"Set de construcción 60 piezas",categoria:"articulos",imagen:"https://images.pexels.com/photos/163077/construction-kit-lego-brick-163077.jpeg",price:11.00,stock:30,descripcion:"Construye y crea figuras."},
-  {id:17,nombre:"Mascarilla infantil reusable",categoria:"ropa",imagen:"https://images.pexels.com/photos/4167545/pexels-photo-4167545.jpeg",price:2.00,stock:150,descripcion:"Mascarilla colorida para niños."},
-  {id:18,nombre:"Luz nocturna animalitos",categoria:"articulos",imagen:"https://images.pexels.com/photos/276294/pexels-photo-276294.jpeg",price:6.50,stock:40,descripcion:"Luz LED suave para la noche."},
-  {id:19,nombre:"Almohada infantil",categoria:"articulos",imagen:"https://images.pexels.com/photos/1181422/pexels-photo-1181422.jpeg",price:9.00,stock:22,descripcion:"Almohada cómoda con funda lavable."},
-  {id:20,nombre:"Cubo de aprendizaje",categoria:"articulos",imagen:"https://images.pexels.com/photos/374078/pexels-photo-374078.jpeg",price:14.00,stock:15,descripcion:"Actividades sensoriales y educativas."}
+  {id:1,nombre:"Pelota infantil arcoíris",categoria:"articulos",imagen:"https://tse3.mm.bing.net/th/id/OIP.IJhEHITA5RRahyaOnCk2LwHaHa?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3",price:5.00,stock:50,descripcion:"Pelota suave y colorida para niños."},
+  {id:2,nombre:"Juego didáctico 20 piezas",categoria:"articulos",imagen:"https://tse4.mm.bing.net/th/id/OIP.KKLWWPeW6IzNtf87m9bMKAHaHa?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3",price:15.00,stock:20,descripcion:"Juego para aprender formas y colores."},
+  {id:3,nombre:"Jugo natural naranja 250ml",categoria:"bebidas",imagen:"https://th.bing.com/th/id/R.9ebdb38ef3055a12c9f0c1e13623cb92?rik=KRDiz7xmUusW1w&riu=http%3a%2f%2facdn.mitiendanube.com%2fstores%2f093%2f780%2fproducts%2f601-7783362ea31416edca16193965512256-640-0.jpeg&ehk=V9Tb12NcqbxN4%2fha19aQs5PvfglmXqPAgH04eKqMDHw%3d&risl=&pid=ImgRaw&r=0",price:1.50,stock:100,descripcion:"Jugo natural sin azúcares añadidos."},
+  {id:4,nombre:"Sándwich saludable",categoria:"comida",imagen:"https://th.bing.com/th/id/R.75a3f4a83fc51e79a8316b894b88261d?rik=9RkYOFU%2fLtPHhQ&riu=http%3a%2f%2fohmybio.es%2fwp-content%2fuploads%2f2018%2f03%2fSandwich-saludable.jpg&ehk=XMyfDmecu1hFOoGP3kdWt8KqiBGK9HXmQam027knqkA%3d&risl=&pid=ImgRaw&r=0",price:2.50,stock:40,descripcion:"Sándwich con pan integral y vegetales."},
+  {id:5,nombre:"Galletas para niños 200g",categoria:"comida",imagen:"https://i5.walmartimages.com.mx/gr/images/product-images/img_large/00750047802831L.jpg",price:1.00,stock:200,descripcion:"Galletas suaves y sin nueces."},
+  {id:6,nombre:"Muñeca articulada 30cm",categoria:"juguetes",imagen:"https://tse2.mm.bing.net/th/id/OIP.ldM6KE2pLl85MP-TCapQKwHaHa?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3",price:12.00,stock:30,descripcion:"Muñeca con ropa y accesorios."},
+  {id:7,nombre:"Carrito de juguete",categoria:"juguetes",imagen:"https://tse1.mm.bing.net/th/id/OIP.PpzO8MUa51KxFjx3KTKi0gHaHa?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3",price:9.50,stock:18,descripcion:"Carrito a control manual para niños."},
+  {id:8,nombre:"Camiseta infantil Talla 6",categoria:"ropa",imagen:"https://www.calcetinesycamisetas.com/801-thickbox_default/camiseta-disney-mickey-mouse-nino.jpg",price:6.00,stock:80,descripcion:"Camiseta cómoda algodón 100%."},
+  {id:9,nombre:"Set de colores 24",categoria:"articulos",imagen:"https://libreriairbe.com/wp-content/uploads/2020/04/Set-24-L%C3%A1pices-de-Colores-Maped-ColorPeps-.jpg",price:3.50,stock:120,descripcion:"Set de lápices y marcadores."},
+  {id:10,nombre:"Puzzle 100 piezas",categoria:"articulos",imagen:"https://th.bing.com/th/id/OIP.50vvLczWA-N7QIlWUwecCQHaHa?o=7&cb=ucfimgc2rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",price:7.00,stock:25,descripcion:"Puzzle educativo para niños."},
+  {id:11,nombre:"Mordedor silicona",categoria:"articulos",imagen:"https://tse2.mm.bing.net/th/id/OIP.h4YzUo4vFNq9ya4MPDohIQHaHa?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3",price:2.50,stock:60,descripcion:"Mordedor seguro para bebés."},
+  {id:12,nombre:"Set de platos infantiles",categoria:"comida",imagen:"https://tse4.mm.bing.net/th/id/OIP.WASVo8Tv3qAEatIycwTZGQHaHa?cb=ucfimgc2&w=692&h=692&rs=1&pid=ImgDetMain&o=7&rm=3",price:10.00,stock:40,descripcion:"Platos resistentes y coloridos."},
+  {id:13,nombre:"Botella térmica 350ml",categoria:"bebidas",imagen:"https://tse3.mm.bing.net/th/id/OIP.hdXvEzbzM_jYbs7GI8gzNgHaHa?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3",price:8.00,stock:50,descripcion:"Térmica para líquidos fríos y calientes."},
+  {id:14,nombre:"Chaqueta niño 8 años",categoria:"ropa",imagen:"https://images.unsplash.com/photo-1542060748-10c28b62716f?w=600",price:18.00,stock:12,descripcion:"Chaqueta ligera con gorro."},
+  {id:15,nombre:"Rompecabezas educativo letras",categoria:"articulos",imagen:"https://m.media-amazon.com/images/I/71P3PapTjML._AC_SL1500_.jpg",price:4.50,stock:70,descripcion:"Aprende letras jugando."},
+  {id:16,nombre:"Set de construcción 60 piezas",categoria:"articulos",imagen:"https://tse1.mm.bing.net/th/id/OIP.QTlVdhMZ3B6R6Eb0gt26VAHaHa?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3",price:11.00,stock:30,descripcion:"Construye y crea figuras."},
+  {id:17,nombre:"Mascarilla infantil reusable",categoria:"ropa",imagen:"https://tse2.mm.bing.net/th/id/OIP.xlkBqBdWMxeYP-NYJ9HyNwHaHa?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3",price:2.00,stock:150,descripcion:"Mascarilla colorida para niños."},
+  {id:18,nombre:"Luz nocturna animalitos",categoria:"articulos",imagen:"https://m.media-amazon.com/images/I/71IGLx1AiBL._AC_SL1500_.jpg",price:6.50,stock:40,descripcion:"Luz LED suave para la noche."},
+  {id:19,nombre:"Almohada infantil",categoria:"articulos",imagen:"https://tse2.mm.bing.net/th/id/OIP.cJ-3ZDM3zN58ybmf9dontQHaHa?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3",price:9.00,stock:22,descripcion:"Almohada cómoda con funda lavable."},
+  {id:20,nombre:"Cubo de aprendizaje",categoria:"articulos",imagen:"https://tse1.mm.bing.net/th/id/OIP.QKPa2NEbHilrDZY3SUGbmAHaHa?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3",price:14.00,stock:15,descripcion:"Actividades sensoriales y educativas."}
 ];
+
+
 
 /* ============================
    Estado del carrito (local)
